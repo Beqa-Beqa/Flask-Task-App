@@ -1,0 +1,70 @@
+body {
+    background-color: #4164c8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.form {
+    background-color: #FFF;
+    border-radius: 20px;
+    padding: 2rem 0;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.form h1 {
+    display: block;
+    margin: 0 4rem 2rem 4rem;
+}
+
+.form .input-container {
+    width: 100%;
+    padding: 0 4rem;
+}
+
+.form .input-container input{
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #b5b4b5;
+    padding: 0 1rem .5rem 1rem;
+    font-size: 1.2rem;
+}
+
+.form .input-container input[type='submit'] {
+    border: none;
+    padding: .5rem 0;
+    transition: .2s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.form .input-container input[type='submit']:hover {
+    background-color: #505fbc;
+    color: #FFF;
+}
+
+.form p {
+    margin: 1.5rem 0 0 0;
+}
+
+.form .flashed-messages {
+    padding: 0 4rem;
+}
+
+.form .flashed-messages-container {
+    padding: 1rem 0;
+    border-radius: 10px;
+    background-color: #ed4346;
+    color: snow;
+}
+
+.form .flashed-messages-container p {
+    margin: 0;
+}

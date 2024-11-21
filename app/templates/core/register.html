@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+<!-- Title -->
+{% block title %}Register{% endblock %}
+
+<!-- Styles of this page -->
+{% block styles%}
+<link rel="stylesheet" href="{{ url_for('static', filename=styles) }}">
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+
+<!-- Markup -->
+
+
+<form class="form" action="{{ url_for('register') }}" method="post">
+    <h1>Register</h1>
+    <hr>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flashed-messages">
+            <div class="flashed-messages-container">
+                
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+                
+            </div>
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="input-container">
+        <input type="text" name="username" placeholder="Username">
+        <input type="number" name="age" placeholder="Age">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Signup">
+    </div>
+    <p>Already a member? <a href="{{ url_for('login') }}">Login</a></p>
+</form>
+
+
+<!-- End markup -->
+
+<!-- Content block end -->
+{% endblock %}
