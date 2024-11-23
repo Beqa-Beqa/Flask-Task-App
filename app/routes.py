@@ -16,6 +16,8 @@ def register_routes(app, db):
         
         # Fetch tasks from databse
         own_tasks = Task.query.filter_by(owner_id=current_user.uid).all()
+        # Reverse the list, so that newest task will be first
+        own_tasks.reverse()
         
         return render_template('auth/index.html', styles='styles/index.css', scripts='scripts/index.js', tasks=own_tasks)
     
@@ -102,7 +104,7 @@ def register_routes(app, db):
         
     
     # Logout route
-    @app.route('/logout')
+    @app.route('/logout', methods=['POST'])
     def logout():
         logout_user()
         return redirect(url_for('login'))
@@ -123,4 +125,43 @@ def register_routes(app, db):
         db.session.add(new_task)
         db.session.commit()
         
+        return redirect(url_for('index'))
+    
+    
+    # Task deletion route
+    @app.route('/delete_task', methods=['POST'])
+    def delete_task():
+        tid = request.json.get('tid', None)
+        if tid:
+            task_to_delete = Task.query.filter_by(tid=tid).one_or_none()
+
+            if task_to_delete:
+                Task.query.filter_by(tid=tid).delete()
+        
+        db.session.commit()
+        
+        return redirect(url_for('index'))
+    
+    
+    # Task edit url
+    @app.route('/edit_task', methods=['POST'])
+    def edit_task():
+        tid = request.json.get('tid', None)
+        new_title = request.json.get('newTitle', None)
+        new_description = request.json.get('newDescription', None)
+        
+        if tid:
+            task_to_update = Task.query.filter_by(tid=tid).one_or_none()
+            
+            if task_to_update and any((new_title, new_description)):
+                task_to_update.title = new_title if new_title else task_to_update.title
+                task_to_update.description = new_description if new_description else task_to_update.description
+                
+                db.session.commit()
+                
+                flash('Task updated successfully!')
+            
+            else:
+                flash('Something went wrong. Please provide either new title or new description!')
+                
         return redirect(url_for('index'))

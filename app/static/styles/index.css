@@ -5,3 +5,8 @@ body {
 textarea {
     resize: none;
 }
+
+.task-edit-modal {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+}
