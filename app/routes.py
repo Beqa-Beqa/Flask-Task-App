@@ -106,3 +106,21 @@ def register_routes(app, db):
     def logout():
         logout_user()
         return redirect(url_for('login'))
+    
+    
+    # Task upload route
+    @app.route('/upload_task', methods=['POST'])
+    def upload_task():
+        title = request.form.get('title')
+        description = request.form.get('description')
+        
+        if not all((title, description)):
+            flash('You should fill both title and description fields!')
+            return redirect(url_for('index'))
+        
+        new_task = Task(title=title, description=description, owner_id=current_user.uid)
+        
+        db.session.add(new_task)
+        db.session.commit()
+        
+        return redirect(url_for('index'))
